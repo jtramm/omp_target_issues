@@ -4,14 +4,12 @@ program = test
 
 source = \
 main.cpp \
-foo.cpp \
 globals.cpp
 
 obj = $(source:.cpp=.o)
 
 deps = \
 globals.h \
-foo.h \
 Makefile
 
 $(program): $(obj) $(deps)
