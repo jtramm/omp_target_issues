@@ -1,6 +1,12 @@
 #include "foo.h"
 #include "globals.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+void foo(int i)
+{
+  arr[i] = i;
+} 
 
 int main(void)
 {
@@ -16,7 +22,7 @@ int main(void)
     // If we call foo, the function appears to have no effect
     foo(i);
 
-    // If we inline the contents of foo, it works correctly.
+    // If we uncomment this to inline the contents of foo, it works correctly.
     //arr[i] = i;
   }
 
@@ -25,9 +31,11 @@ int main(void)
     printf("%d ", arr[i]);
   printf("\n");
   
-  // Return bad code if we failed
+  // Return error code if we failed
   if( arr[5] == 5 )
+  {
     return 0;
+  }
   else
   {
     printf("Error!\n");
