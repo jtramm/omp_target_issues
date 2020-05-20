@@ -1,8 +1,14 @@
-CC = icpx
-CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__
+COMPILER = intel
 
-#CC = xlc_r
-#CFLAGS = -Wall -qsmp=omp -qoffload
+ifeq ($(COMPILER),intel)
+  CC = icpx
+  CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__
+endif
+
+ifeq ($(COMPILER),ibm)
+  CC = xlc_r
+  CFLAGS = -Wall -qsmp=omp -qoffload
+endif
 
 program = test
 
