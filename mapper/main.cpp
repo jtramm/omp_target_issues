@@ -30,7 +30,7 @@ int main(void)
   printf("\n");
   
   // Return non-zero error code if we failed
-  if( arr[5] != 5 )
+  if( obj.arr[5] != 5 )
   {
     printf("Error!\n");
     return 1;
