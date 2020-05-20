@@ -5,3 +5,5 @@ MyObject* device_array;
 
 std::vector<int> host_stuff;
 int* device_stuff;
+
+int * arr;
