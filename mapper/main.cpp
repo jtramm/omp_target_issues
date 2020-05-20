@@ -22,19 +22,19 @@ int main(void)
     obj.arr[i] = i;
   }
 
-  // Print filled array on host
+  // Print expected and actual arrays on host
   printf("Expected Result: 0 1 2 3 4 5\n");
   printf("Actual   Result: ");
   for( int i = 0; i < obj.len; i++)
     printf("%d ", obj.arr[i]);
   printf("\n");
   
-  // Return bad code if we failed
-  if( obj.arr[5] == 5 )
-    return 0;
-  else
+  // Return non-zero error code if we failed
+  if( arr[5] != 5 )
   {
     printf("Error!\n");
     return 1;
   }
+
+  return 0;
 }
