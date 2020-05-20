@@ -1,6 +1,9 @@
-#include "globals.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#pragma omp declare target
+int * arr;
+#pragma omp end declare target
 
 #pragma omp declare target
 void foo(int i)
@@ -11,7 +14,7 @@ void foo(int i)
 
 int main(void)
 {
-  // Allocate array
+  // Allocate array and set to zero
   int len = 6;
   arr = (int *) calloc( len, sizeof(int) );
 
@@ -20,20 +23,15 @@ int main(void)
   map(tofrom: arr[:len])
   for( int i = 0; i < len; i++)
   {
-    // If we call foo, the function appears to have no effect
+    // Calling foo appears to have no effect
     foo(i);
 
     // If we uncomment this to inline the contents of foo, it works correctly.
     //arr[i] = i;
   }
   
-  // Print expected array on host
-  printf("Expected Result: ");
-  for( int i = 0; i < len; i++)
-    printf("%d ", i);
-  printf("\n");
-
-  // Print actual array on host
+  // Print expected and actual arrays on host
+  printf("Expected Result: 0 1 2 3 4 5\n");
   printf("Actual   Result: ");
   for( int i = 0; i < len; i++)
     printf("%d ", arr[i]);
