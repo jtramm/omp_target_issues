@@ -24,10 +24,10 @@ int main(void)
   for( int i = 0; i < len; i++)
   {
     // Calling foo appears to have no effect
-    foo(i);
+    //foo(i);
 
     // If we uncomment this to inline the contents of foo, it works correctly.
-    //arr[i] = i;
+    arr[i] = i;
   }
   
   // Print expected and actual arrays on host

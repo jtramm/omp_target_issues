@@ -1,4 +1,4 @@
-COMPILER = intel
+COMPILER = llvm
 
 ifeq ($(COMPILER),intel)
   CC = icpx
@@ -8,6 +8,11 @@ endif
 ifeq ($(COMPILER),ibm)
   CC = xlc_r
   CFLAGS = -Wall -qsmp=omp -qoffload
+endif
+
+ifeq ($(COMPILER),llvm)
+  CC = clang++
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60 -g
 endif
 
 program = test
