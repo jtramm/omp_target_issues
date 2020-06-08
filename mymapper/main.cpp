@@ -38,9 +38,7 @@ class MyObjectB{
     {
       printf("\tObject B Contents:\n");
       for( int i = 0; i < len; i++ )
-      {
         host_arr[i].show();
-      }
     }
     void foo()
     {
@@ -105,9 +103,7 @@ class MyObjectC{
     {
       printf("Object C Contents:\n");
       for( int i = 0; i < len; i++ )
-      {
         host_arr[i].show();
-      }
     }
     void foo()
     {
