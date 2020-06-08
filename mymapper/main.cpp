@@ -4,6 +4,8 @@
 
 #define N 2
 
+#define RUN_ON_DEVICE
+
 class MyObjectA{
   public:
     MyObjectA()
@@ -16,7 +18,7 @@ class MyObjectA{
       printf("\t\tObject A Contents:\n");
       printf("\t\t\tdata1 = %d  data2 = %d\n", data1, data2);
     }
-    void inc()
+    void foo()
     {
       data1++;
       data2++;
@@ -40,11 +42,16 @@ class MyObjectB{
         host_arr[i].show();
       }
     }
-    void inc()
+    void foo()
     {
       for( int i = 0; i < len; i++ )
-        //host_arr[i].inc();
-        device_arr[i].inc();
+      {
+        #ifdef RUN_ON_DEVICE
+        device_arr[i].foo();
+        #else
+        host_arr[i].foo();
+        #endif
+      }
     }
     void device_alloc()
     {
@@ -102,11 +109,16 @@ class MyObjectC{
         host_arr[i].show();
       }
     }
-    void inc()
+    void foo()
     {
       for( int i = 0; i < len; i++ )
-        //host_arr[i].inc();
-        device_arr[i].inc();
+      {
+        #ifdef RUN_ON_DEVICE
+        device_arr[i].foo();
+        #else
+        host_arr[i].foo();
+        #endif
+      }
     }
     void device_alloc()
     {
@@ -162,18 +174,24 @@ int main(void)
   for( int i = 0; i < N; i++ )
     outer[i].show();
   
+  #ifdef RUN_ON_DEVICE
   for( int i = 0; i < N; i++ )
   {
     outer[i].device_alloc();
     outer[i].copy_to_device();
   }
+  #endif
 
+  #ifdef RUN_ON_DEVICE
   #pragma omp target teams distribute parallel for map(tofrom: outer[:N])
+  #endif
   for( int i = 0; i < N; i++)
-    outer[i].inc();
+    outer[i].foo();
   
+  #ifdef RUN_ON_DEVICE
   for( int i = 0; i < N; i++ )
     outer[i].copy_from_device();
+  #endif
 
   for( int i = 0; i < N; i++ )
     outer[i].show();
