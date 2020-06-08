@@ -5,6 +5,7 @@
 int host_id;
 int device_id;
 int n;
+  
 
 class MyObject{
   public:
