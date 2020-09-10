@@ -6,7 +6,7 @@
 // Note that throughout the code, we are determining the number of
 // elements to allocate using a random number provided by rand().
 // In a real application, the number of elements would be provided
-// by an input file. Randomization is used to simplify the interface
+// by a user input file. Randomization is used to simplify the interface
 // while trying to still make it clear that these allocations may
 // be of different sizes based on runtime user inputs.
 
@@ -59,7 +59,7 @@ class Cell
       neighbor_ids_length = rand() % 100;
       neighbor_ids        = new int[neighbor_ids_length];
 
-      // Initialize ids to meaningful values here
+      // Initialize arrays to meaningful values here
       // ...
     }
 };
@@ -97,7 +97,7 @@ class UniversePartitioner
       
       partitions               = new Cell[partitions_length];
 
-      // Initialize cells to meaningful values here
+      // Initialize arrays to meaningful values here
       // ...
     }
 };
