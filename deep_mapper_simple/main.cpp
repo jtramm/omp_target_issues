@@ -22,6 +22,7 @@ int main(void)
     }
   }
 
+  // Send data to device
   #pragma omp target enter data map(to: objects[:N])
   for( int i = 0; i < N; i++ )
   {
@@ -39,14 +40,14 @@ int main(void)
     }
   }
 
+  // Pull data from device
   #pragma omp target exit data map(from: objects[:N])
   for( int i = 0; i < N; i++ )
   {
     #pragma omp target exit data map(from: objects[i].arr[:N])
   }
 
-  // Print expected and actual results and check for any errors
-  
+  // Print all expected and actual results and check for any errors
   printf("Primitive Value Check:\n");
   printf("\tExpected Result: 0 2 4 6 8\n");
   printf("\tActual   Result: ");
