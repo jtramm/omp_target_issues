@@ -41,11 +41,11 @@ int main(void)
   }
 
   // Pull data from device
-  #pragma omp target exit data map(from: objects[:N])
   for( int i = 0; i < N; i++ )
   {
     #pragma omp target exit data map(from: objects[i].arr[:N])
   }
+  #pragma omp target exit data map(from: objects[:N])
 
   // Print all expected and actual results and check for any errors
   printf("Primitive Value Check:\n");

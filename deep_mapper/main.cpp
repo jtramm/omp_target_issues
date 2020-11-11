@@ -21,11 +21,11 @@ void move_data_to_device(int N)
 
 void move_data_to_host(int N)
 {
-  #pragma omp target exit data map(from: objects[:N])
   for( int i = 0; i < N; i++ )
   {
     #pragma omp target exit data map(from: objects[i].arr[:N])
   }
+  #pragma omp target exit data map(from: objects[:N])
 }
 
 int main(void)
