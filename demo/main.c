@@ -1,4 +1,4 @@
-// Unifed Shared Memory
+// Unified Shared Memory
 
 typedef struct{
   int len;
