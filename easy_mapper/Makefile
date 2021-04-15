@@ -15,6 +15,11 @@ ifeq ($(COMPILER),llvm)
   CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60 -g
 endif
 
+ifeq ($(COMPILER),amd)
+  CC = clang++
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906
+endif
+
 program = test
 
 source = main.cpp

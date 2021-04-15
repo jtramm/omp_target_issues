@@ -1,8 +1,8 @@
-COMPILER = intel
+COMPILER = amd
 
 ifeq ($(COMPILER),intel)
   CC = icpx
-  CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__ -g
+  CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__
 endif
 
 ifeq ($(COMPILER),ibm)
@@ -15,13 +15,18 @@ ifeq ($(COMPILER),llvm)
   CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60 -g
 endif
 
+ifeq ($(COMPILER),amd)
+  CC = clang++
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906
+endif
+
 program = test
 
-source = main.cpp global.cpp foo.cpp
+source = main.cpp global.cpp
 
 obj = $(source:.cpp=.o)
 
-deps = Makefile global.h foo.h
+deps = Makefile
 
 $(program): $(obj) $(deps)
 	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
@@ -33,4 +38,4 @@ clean:
 	rm -rf $(program) $(obj)
 
 edit:
-	vim -p $(source) $(deps) 
+	vim -p $(source) $(deps)

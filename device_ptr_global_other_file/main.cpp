@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <assert.h>
 #include "global.h"
-#include "foo.h"
 
-int * host_arr;
+void foo(int i)
+{
+  device_arr[i] *= 2;
+}
 
 int main(void)
 {
@@ -15,7 +18,7 @@ int main(void)
 
   // Allocate and initialize host array
   size_t sz = N * sizeof(int);
-  host_arr = (int *) malloc(sz);
+  int * host_arr = (int *) malloc(sz);
   for( int i = 0; i < N; i++ )
   {
     host_arr[i] = i;
@@ -24,31 +27,22 @@ int main(void)
   // Allocate device array and copy data from host -> device
   device_arr = (int *) omp_target_alloc(sz, device_id);
   omp_target_memcpy(device_arr, host_arr, sz, 0, 0, device_id, host_id);
+  #pragma omp target update to(device_arr)
 
   // Execute device kernel
   #pragma omp target teams distribute parallel for\
-  is_device_ptr(device_arr)
+  //is_device_ptr(device_arr)
   for( int i = 0; i < N; i++)
   {
-    foo(i);
+     //device_arr[i] *= 2; // This works
+    foo(i);                // This does not
   }
   
   // Copy data from device -> host
   omp_target_memcpy(host_arr, device_arr, sz, 0, 0, host_id, device_id);
 
-  // Print expected and actual arrays on host
-  printf("Expected Result: 0 2 4 6 8\n");
-  printf("Actual   Result: ");
-  for( int i = 0; i < N; i++)
-    printf("%d ", host_arr[i]);
-  printf("\n");
-  
   // Return non-zero error code if we failed
-  if( host_arr[4] != 8 )
-  {
-    printf("Error!\n");
-    return 1;
-  }
+  assert( host_arr[4] == 8 );
 
   return 0;
 }

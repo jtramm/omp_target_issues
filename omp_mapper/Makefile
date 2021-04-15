@@ -12,7 +12,7 @@ endif
 
 ifeq ($(COMPILER),llvm)
   CC = clang++
-  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60 -g
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_70
 endif
 
 program = test
