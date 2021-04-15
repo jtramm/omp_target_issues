@@ -1,4 +1,4 @@
-// Unifed Shared Memory
+// Unified Shared Memory
 
 typedef struct{
   int len;
@@ -99,7 +99,7 @@ Object * device_array = (Object *) omp_target_alloc(N * sizeof(Object), omp_get_
 // ... deep copy data from host -> device inner arrays (too complex to show here) ...
 // ... deep copy data from host -> device outer array  (too complex to show here) ...
 
-// This now performs a deep copy
+// Must inform OpenMP that device_array is already mapped
 #pragma omp target is_device_ptr(device_array)
 {
   foo(device_array);
