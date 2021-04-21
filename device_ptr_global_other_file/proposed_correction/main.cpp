@@ -30,12 +30,11 @@ int main(void)
   #pragma omp target update to(device_arr)
 
   // Execute device kernel
-  #pragma omp target teams distribute parallel for\
-  //is_device_ptr(device_arr)
+  #pragma omp target teams distribute parallel for
   for( int i = 0; i < N; i++)
   {
-     //device_arr[i] *= 2; // This works
-    foo(i);                // This does not
+    //device_arr[i] *= 2; // This works
+    foo(i);               // This does not
   }
   
   // Copy data from device -> host
