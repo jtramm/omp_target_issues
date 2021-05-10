@@ -17,11 +17,11 @@ endif
 
 program = test
 
-source = main.cpp global.cpp foo.cpp
+source = main.cpp
 
 obj = $(source:.cpp=.o)
 
-deps = Makefile global.h foo.h
+deps = Makefile
 
 $(program): $(obj) $(deps)
 	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)

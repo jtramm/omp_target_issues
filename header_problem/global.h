@@ -1,8 +1,8 @@
-#ifndef FOO_H
-#define FOO_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 #pragma omp declare target
-void foo(int i);
+extern int * global_array;
 #pragma omp end declare target
 
 #endif
