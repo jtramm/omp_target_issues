@@ -1,4 +1,4 @@
-COMPILER = llvm
+COMPILER = intel
 
 ifeq ($(COMPILER),intel)
   CC = icpx
@@ -22,11 +22,11 @@ endif
 
 program = test
 
-source = main.cpp global.cpp
+source = main.cpp
 
 obj = $(source:.cpp=.o)
 
-deps = Makefile global.h
+deps = Makefile
 
 $(program): $(obj) $(deps)
 	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
