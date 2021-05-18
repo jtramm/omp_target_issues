@@ -20,14 +20,14 @@ int main(void)
   // Run device kernel
   #pragma omp target
   {
-    B[0] = 20;
+    B[0] *= 2;
   }
   
   // Map A back to host
   #pragma omp target exit data map(from: A[:N])
     
   // Check last element
-  assert(A[N-1] == 20 && "Failed correctness check\n");
+  assert(A[N-1] == 18 && B[0] == 18 && "Failed correctness check\n");
 
   printf("Success!\n");
 
