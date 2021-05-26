@@ -1,4 +1,4 @@
-COMPILER = llvm
+COMPILER = intel
 
 ifeq ($(COMPILER),intel)
   CC = icpx
