@@ -12,7 +12,7 @@ endif
 
 ifeq ($(COMPILER),llvm)
   CC = clang++
-  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_70 -g
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_70
 endif
 
 ifeq ($(COMPILER),amd)
@@ -22,11 +22,11 @@ endif
 
 program = test
 
-source = main.cpp global.cpp
+source = main.cpp global.cpp transfer.cpp
 
 obj = $(source:.cpp=.o)
 
-deps = Makefile global.h
+deps = Makefile global.h transfer.h
 
 $(program): $(obj) $(deps)
 	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)

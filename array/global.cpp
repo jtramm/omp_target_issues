@@ -1,5 +1,6 @@
 #include"global.h"
 namespace settings
 {
-std::array<double, len> arr {0, 1, 2, 3, 4, 5};
+  int mult {0};
+  std::array<double, 4> arr {0., 0., 0., 0.};
 }

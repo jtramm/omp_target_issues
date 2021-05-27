@@ -1,9 +1,9 @@
 #include <array>
-#define len 6
 namespace settings {
 
-#pragma omp declare target
-extern std::array<double, len> arr;
-#pragma omp end declare target
+  #pragma omp declare target
+  extern int mult;
+  extern std::array<double, 4> arr;
+  #pragma omp end declare target
 
 }
