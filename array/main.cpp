@@ -1,8 +1,8 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include"global.h"
-#include"transfer.h"
+#include "global.h"
+#include "transfer.h"
   
 int main(void)
 {
@@ -18,7 +18,7 @@ int main(void)
   #pragma omp target teams distribute parallel for
   for( int i = 0; i < 4; i++ )
   {
-    arr[i] *= 2;
+    arr[i] *= 2.0;
   }
   
   // This works
@@ -27,7 +27,7 @@ int main(void)
   // This does not
   copy_device_to_host();
   
-  assert(arr[3] == 6 && "Correctness check failed");
+  assert(arr[3] == 6.0 && "Correctness check failed");
 
   return 0;
 }
