@@ -22,11 +22,11 @@ endif
 
 program = test
 
-source = main.cpp
+source = main.cpp global.cpp
 
 obj = $(source:.cpp=.o)
 
-deps = Makefile
+deps = Makefile global.h
 
 $(program): $(obj) $(deps)
 	$(CC) $(CFLAGS) $(obj) -o $@ $(LDFLAGS)
