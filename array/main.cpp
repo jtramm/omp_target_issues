@@ -6,7 +6,7 @@
 #pragma omp declare target
 void foo(int i)
 {
-  settings::arr[i] *= settings::mult;
+  settings::arr[i] *= 2;
 } 
 #pragma omp end declare target
 
@@ -14,8 +14,6 @@ int main(void)
 {
   for( int i = 0; i < 4; i++ )
     settings::arr[i] = i;
-
-  settings::mult = 2;
 
   copy_host_to_device();
 
