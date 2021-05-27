@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include"global.h"
@@ -8,6 +9,10 @@ int main(void)
   for( int i = 0; i < 4; i++ )
     arr[i] = i;
 
+  // This works
+  //#pragma omp target update to(arr)
+
+  // This does not
   copy_host_to_device();
 
   #pragma omp target teams distribute parallel for
@@ -16,21 +21,13 @@ int main(void)
     arr[i] *= 2;
   }
   
+  // This works
+  //#pragma omp target update from(arr)
+  
+  // This does not
   copy_device_to_host();
   
-  // Print expected and actual arrays on host
-  printf("Expected Result: 0 2 4 6\n");
-  printf("Actual   Result: ");
-  for( int i = 0; i < 4; i++ )
-    printf("%.0lf ", arr[i]);
-  printf("\n");
-  
-  // Return non-zero error code if we failed
-  if( arr[3] != 6 )
-  {
-    printf("Error!\n");
-    return 1;
-  }
+  assert(arr[3] == 6 && "Correctness check failed");
 
   return 0;
 }
