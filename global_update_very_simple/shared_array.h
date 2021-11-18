@@ -18,10 +18,10 @@
 // call the thread_safe_append() function concurrently and store data to the
 // object at the index returned from thread_safe_append() safely, but no other
 // operations are protected.
-template <typename T>
-class SharedArray {
+template <typename T> 
+class SharedArray { 
 
-public:
+public: 
   //==========================================================================
   // Constructors
 
@@ -72,7 +72,7 @@ public:
     capacity_ = capacity;
   }
 
-  //! Increase the size of the container by one and append value to the
+  //! Increase the size of the container by one and append value to the 
   //! array. Returns an index to the element of the array written to. Also
   //! tests to enforce that the append operation does not read off the end
   //! of the array. In the event that this does happen, set the size to be
@@ -121,12 +121,12 @@ public:
 
   //! Return the number of elements in the container
   int64_t size() {return size_;}
-
+  
   void sync_size_host_to_device()
   {
     #pragma omp target update to(this[:1])
   }
-
+  
   void sync_size_device_to_host()
   {
     #pragma omp target update from(this[:1])
@@ -153,30 +153,34 @@ public:
 
   void allocate_on_device()
   {
-    #pragma omp target update to(this[:1])
+    #pragma omp target update to(capacity_)
+    #pragma omp target update to(size_)
     #pragma omp target enter data map(alloc: data_[:capacity_])
   }
 
   void copy_host_to_device()
   {
-    #pragma omp target update to(this[:1])
+    //#pragma omp target update to(this[:1])
     #pragma omp target update to(data_[:capacity_])
+    #pragma omp target update to(capacity_)
+    #pragma omp target update to(size_)
   }
-
+  
   void copy_device_to_host()
   {
     #pragma omp target update from(data_[:capacity_])
-    #pragma omp target update from(this[:1])
+    #pragma omp target update from(capacity_)
+    #pragma omp target update from(size_)
   }
-
+  
   //==========================================================================
   // Data members
 
-  private:
+  private: 
 
   T* data_ {NULL}; //!< An RAII handle to the elements
-  int64_t size_ {0}; //!< The current number of elements
+  int64_t size_ {0}; //!< The current number of elements 
   int64_t capacity_ {0}; //!< The total space allocated for elements
-};
+}; 
 
 #endif // OPENMC_SHARED_ARRAY_H

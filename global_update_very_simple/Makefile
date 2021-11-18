@@ -1,8 +1,9 @@
-COMPILER = nvidia
+COMPILER = intel
 
 ifeq ($(COMPILER),intel)
   CC = icpx
   CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__ -gline-tables-only
+  #CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64_gen -Xopenmp-target-backend "-device gen9" -D__STRICT_ANSI__ -gline-tables-only
 endif
 
 ifeq ($(COMPILER),ibm)
@@ -17,7 +18,7 @@ endif
 
 ifeq ($(COMPILER),amd)
   CC = clang++
-  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx908
 endif
 
 ifeq ($(COMPILER),nvidia)
