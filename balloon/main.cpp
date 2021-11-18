@@ -56,6 +56,7 @@ int main(int argc, char* argv[])
       {
         #pragma omp target enter data map(to:arr[i].arr[j].arr[k].arr[:len*multi])
 
+        // If the below region is commented out, things are much faster.
         #pragma omp target
         {
           arr[i].arr[j].arr[k].arr[0] = 1.0;
