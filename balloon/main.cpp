@@ -20,9 +20,7 @@ C* arr;
 
 int main(int argc, char* argv[])
 {
-  assert(argc==2 && "Must set length as argument");
-
-  size_t len = atoi(argv[1]);
+  size_t len = 27;
   size_t multi = 80;
   printf("len = %lu  total data elements = %lu total mapping clauses = %lu\n", len, len*len*len*len*multi, 1 + len*len*len);
   
