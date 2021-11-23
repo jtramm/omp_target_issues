@@ -1,4 +1,4 @@
-COMPILER = intel
+COMPILER = amd
 
 ifeq ($(COMPILER),intel)
   CC = icpx
@@ -12,12 +12,12 @@ endif
 
 ifeq ($(COMPILER),llvm)
   CC = clang++
-  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60 -g
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_80 -fopenmp-cuda-mode
 endif
 
 ifeq ($(COMPILER),amd)
   CC = clang++
-  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906
+  CFLAGS = -Wall -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx908
 endif
 
 program = test
