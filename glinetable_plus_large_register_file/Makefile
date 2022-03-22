@@ -2,7 +2,7 @@ COMPILER = intel
 
 ifeq ($(COMPILER),intel)
   CC = icpx
-  CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__ -gline-tables-only
+  CFLAGS = -Wall -fiopenmp -fopenmp-targets=spir64 -D__STRICT_ANSI__ -g
 endif
 
 ifeq ($(COMPILER),ibm)
