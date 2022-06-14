@@ -13,6 +13,10 @@ double run_empty(){
 }
 
 int main(int argc, char *argv[]) {
+  if (argc != 2) {
+    printf("Provide dimension of 2D array as first argument...\n");
+    return -1;
+  }
   size_t len = atoi(argv[1]);
 
   // Allocate 2D matrix of size len x len
@@ -40,9 +44,6 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 5; i++) {
     double ms1 = run_empty();
     printf("  %.5lf ms\n", ms1);
-    if( i == 4 )
-      printf("RESULT:%lu\t%.5lf\n", len, ms1);
-    #pragma omp target update to(arr[0][:0])
   }
 
   // Unmap 2D matrix
